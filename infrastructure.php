@@ -3,13 +3,13 @@ require('sidebar.php');
 if(isset($_GET['type']) && $_GET['type']!=''){
 	$type=get_safe_value($connection,$_GET['type']);
 	if($type=='delete'){
-		$id=get_safe_value($con,$_GET['id']);
+		$id=get_safe_value($connection,$_GET['id']);
 		$delete_sql="delete from tbl_member where id='$id'";
-		mysqli_query($con,$delete_sql);
+		mysqli_query($connection,$delete_sql);
 	}
 }
 
-$sql="select * from infra_vulns order by 'Plugin ID' desc";
+$sql="select * from infra_vulns order by 'id' desc";
 $res=mysqli_query($connection,$sql);
 ?>
 <div class="content pb-0">
@@ -26,7 +26,8 @@ $res=mysqli_query($connection,$sql);
 					  <table class="table ">
 						 <thead>
 							<tr>
-							   <th class="serial">Status</th>
+							   <th class="serial">ID</th>
+							   <th>Status</th>
 							   <th>Plugin ID</th>
 							   <th>Vulnerability</th>
 							   <th>Severity</th>
@@ -40,10 +41,10 @@ $res=mysqli_query($connection,$sql);
 						 </thead>
 						 <tbody>
 							<?php 
-							$i=1;
 							while($row=mysqli_fetch_assoc($res)){?>
 							<tr>
-							   <td class="serial"><?php echo $row['status']?></td>
+							   <td class="serial"><?php echo $row['id']?></td>
+							   <td><?php echo $row['status']?></td>
 							   <td><?php echo $row['plugin_id']?></td>
 							   <td><?php echo $row['vulnerability']?></td>
 							   <td><?php echo $row['severity']?></td>
@@ -54,8 +55,8 @@ $res=mysqli_query($connection,$sql);
 							   <td><?php echo $row['date_remediated']?></td>
 							   <td>
 								<?php
-								echo "<span class='badge badge-edit'><a href='?type=delete&id=".$row['plugin_id']."'>Edit</a></span>";
-								echo "<span class='badge badge-delete'><a href='?type=delete&id=".$row['plugin_id']."'>Delete</a></span>";
+								echo "<span class='badge badge-edit'> <a href='update_infrastructure.php?id=$row[id]'> Edit </a> </span>";
+								echo "<span class='badge badge-delete'><a href='?id=$row[id]'> Hapus </a></span>";
 								?>
 							   </td>
 							</tr>
@@ -71,4 +72,12 @@ $res=mysqli_query($connection,$sql);
 </div>
 <?php
 require('footer.inc.php');
+?>
+
+<?php
+if(isset($_GET['id'])){
+	mysqli_query($connection, "delete from infra_vulns where id='$_GET[id]'");
+	echo "Data telah terhapus";
+	echo "<meta http-equiv=refresh content=1;URL='infrastructure.php'>";
+}
 ?>

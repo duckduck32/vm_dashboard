@@ -3,10 +3,6 @@
 <form action="" method="post">
     <table>
         <tr>
-            <td>Status</td>
-            <td><input type="radio" name="status" id="" value="Open">Open</td>
-        </tr>
-        <tr>
             <td>Plugin ID</td>
             <td><input type="number" name="plugin_id" placeholder="Plugin ID" required></td>
         </tr>
@@ -15,8 +11,13 @@
             <td><input type="text" name="vulnerability" placeholder="Vulnerability" required></td>
         </tr>
         <tr>
-            <td>Severity</td>
-            <td> <input type="text" name="severity" id="" required></td>
+            <label for="severity">Severity</label>
+            <select id="severity" name="severity">
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+        </select>
         </tr>
         <tr>
             <td>Hostname</td>
@@ -35,10 +36,6 @@
             <td><input type="date" name="date_found" id="" required></td>
         </tr>
         <tr>
-            <td>Date Remediated</td>
-            <td><input type="date" name="date_remediated" id="" required></td>
-        </tr>
-        <tr>
             <td></td>
             <td><input type="submit" name="proses" id=""></td>
         </tr>
@@ -53,28 +50,20 @@
 include "connection.inc.php";
 
 if (isset($_POST['proses'])) {
-    $status = $_POST['status'];
-    $plugin_id = $_POST['plugin_id'];
-    $vulnerability = $_POST['vulnerability'];
-    $severity = $_POST['severity'];
-    $hostname = $_POST['hostname'];
-    $ip = $_POST['ip'];
-    $count = $_POST['count'];
-    $date_found = $_POST['date_found'];
-    $date_remediated = $_POST['date_remediated'];
+    mysqli_query($connection, "insert into infra_vulns set
+    status = 'Open',
+    plugin_id = '$_POST[plugin_id]',
+    vulnerability = '$_POST[vulnerability]',
+    severity = '$_POST[severity]',
+    hostname = '$_POST[hostname]',
+    ip = '$_POST[ip]',
+    count = '$_POST[count]',
+    date_found = '$_POST[date_found]',
+    date_remediated = '0000-00-00'");
 
-    // Use prepared statements to prevent SQL injection
-    $stmt = $connection->prepare("INSERT INTO infra_vulns (status, plugin_id, vulnerability, severity, hostname, ip, count, date_found, date_remediated)
-                                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("sissssiss", $status, $plugin_id, $vulnerability, $severity, $hostname, $ip, $count, $date_found, $date_remediated);
-
-    if ($stmt->execute()) {
-        echo "Data Vulnerability telah ditambahkan";
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
+    echo "Data telah berhasil ditambahkan";
+    echo "<meta http-equiv=refresh content=1;URL='infrastructure.php'>";
 }
+
 ?>
