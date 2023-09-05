@@ -8,74 +8,41 @@ if(isset($_SESSION['ADMIN_LOGIN']) && $_SESSION['ADMIN_LOGIN']!=''){
    die();
 }
 ?>
-<!doctype html>
-<html class="no-js" lang="">
-   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <title>ADMIN DASHBOARD PAGE</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="assets/css/normalize.css">
-      <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-      <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-      <link rel="stylesheet" href="assets/css/themify-icons.css">
-      <link rel="stylesheet" href="assets/css/pe-icon-7-filled.css">
-      <link rel="stylesheet" href="assets/css/flag-icon.min.css">
-      <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
-      <link rel="stylesheet" href="assets/css/style.css">
-      <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-   </head>
-   <body>
-      <aside id="left-panel" class="left-panel">
-         <nav class="navbar navbar-expand-sm navbar-default">
-            <div id="main-menu" class="main-menu collapse navbar-collapse">
-               <ul class="nav navbar-nav">
-                  <li class="menu-title">MENU</li>
 
-               <li class="menu-item-has-children dropdown">
-                     <a href="categories.php" > SCHEDULING </a>
-               </li>
-				   <li class="menu-item-has-children dropdown">
-                     <a href="infrastructure.php" > INFRASTRUCTURE </a>
-               </li>
-				   <li class="menu-item-has-children dropdown">
-                     <a href="coupon_master.php" > APPLICATION </a>
-               </li>
-				   <li class="menu-item-has-children dropdown">
-                     <a href="contact_us.php" > PORTS </a>
-               </li>
-               <li class="menu-item-has-children dropdown">
-                     <a href="categories.php" > SENSITIVE FILE </a>
-               </li>
-               <li class="menu-item-has-children dropdown">
-                     <a href="categories.php" > OTHERS </a>
-               </li>
-
-                  <?php if($_SESSION['ADMIN_ROLE']!=1){?>
-				   <li class="menu-item-has-children dropdown">
-                     <a href="vendor_management.php" > USERS </a>
-               </li>
-				  <?php } ?>
-               </ul>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Simple Sidebar - Start Bootstrap Template</title>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="assets/css/style.css" rel="stylesheet" />
+    </head>
+    <body>
+    <aside id="left-panel" class="left-panel">
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar-->
+            <div class="border-end bg-white" id="sidebar-wrapper">
+                <div class="sidebar-heading border-bottom bg-light">WELCOME [<?php echo $_SESSION['ADMIN_USERNAME']?>]</div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="index.php">Dashboard</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Scheduling</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="infrastructure.php">Infrastructure</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="application.php">Application</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="port.php">Port</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Sensitive File</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Other</a>
+                    <?php if($_SESSION['ADMIN_ROLE']!=1){?>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="users.php">Users</a>
+				    <?php } ?>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="logout.php">Log Out</a>
+                </div>
             </div>
-         </nav>
-      </aside>
-      <div id="right-panel" class="right-panel">
-         <header id="header" class="header">
-            <div class="top-left">
-               <div class="navbar-header">
-                  <img src="images/MyLogo.png" style="width:60px;height:45px;" alt="">
-               </div>
-            </div>
-            <div class="top-right">
-               <div class="header-menu">
-                  <div class="user-area dropdown float-right">
-                     <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">WELCOME <?php echo $_SESSION['ADMIN_USERNAME']?></a>
-                     <div class="user-menu dropdown-menu">
-                        <a class="nav-link" href="logout.php"><i class="fa fa-power-off"></i>LOGOUT</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </header>
+    </aside>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
